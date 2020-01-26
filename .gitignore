@@ -1,0 +1,6 @@
+.DS_Store
+.bundle
+.terraform
+develop.tfvars
+function/vendor
+script.zip
