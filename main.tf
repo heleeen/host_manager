@@ -9,11 +9,13 @@ provider "aws" {
   region = var.region
 }
 
+# TODO FIX
 module "iam" {
   source = "./terraform/iam"
   name   = var.name
 }
 
+# TODO FIX
 module "function" {
   source       = "./terraform/lambda"
   name         = var.name

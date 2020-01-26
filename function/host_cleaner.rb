@@ -19,6 +19,7 @@ def exec(event:, context:)
         region: 'ap-northeast-1'
       )
 
+      # May Yasashisa
       resp = ecs.stop_task({
         cluster: ENV['CLUSTER_NAME'],
         task: host_name,
