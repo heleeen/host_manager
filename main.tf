@@ -9,16 +9,27 @@ provider "aws" {
   region = var.region
 }
 
-# TODO FIX
 module "iam" {
-  source = "./terraform/iam"
+  source = "git@github.com:heleeen/heleeen_terraform.git//lambda_iam"
   name   = var.name
 }
 
-# TODO FIX
 module "function" {
-  source       = "./terraform/lambda"
-  name         = var.name
-  role_arn     = module.iam.role_arn
-  cluster_name = var.cluster_name
+  source   = "git@github.com:heleeen/heleeen_terraform.git//lambda_function"
+  name     = var.name
+  role_arn = module.iam.role_arn
+  environments = map(
+    "CLUSTER_NAME", var.cluster_name
+  )
+}
+
+# IAM
+resource "aws_iam_role_policy_attachment" "ecs" {
+  role       = module.iam.role_name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
+}
+
+resource "aws_iam_role_policy_attachment" "cloudwatch_logs" {
+  role       = module.iam.role_name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
