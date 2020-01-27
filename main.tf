@@ -10,12 +10,12 @@ provider "aws" {
 }
 
 module "iam" {
-  source = "git@github.com:heleeen/heleeen_terraform.git//lambda_iam"
+  source = "git@github.com:heleeen/heleeen_terraform.git//lambda_iam?ref=v0.1"
   name   = var.name
 }
 
 module "function" {
-  source   = "git@github.com:heleeen/heleeen_terraform.git//lambda_function"
+  source   = "git@github.com:heleeen/heleeen_terraform.git//lambda_function?ref=v0.1"
   name     = var.name
   role_arn = module.iam.role_arn
   environments = map(
